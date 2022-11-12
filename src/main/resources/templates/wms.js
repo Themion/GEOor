@@ -31,7 +31,7 @@ const createMarkerLayer = (markerType) => new ol.layer.Vector({
             src: `img/${markerType}.png`
         })
     })
-})
+});
 
 // 주어진 좌표에 주어진 id를 갖는 마커 생성
 const createMarker = (coord, id) => {
