@@ -18,7 +18,7 @@ const map = new ol.Map({
 });
 
 // 마커의 종류
-const markerTypes = ['tunnel', 'bridge','frozen'];
+const markerTypes = ['tunnel', 'bridge'/* , 'frozen' */];
 
 // 마커를 담을 레이어의 집합
 const markerLayers = {}
@@ -52,7 +52,7 @@ const setHazardMarker = async (markerType) => {
         const markerLayer = createMarkerLayer(markerType)
 
         // api 호출 후 데이터를 파싱
-        const res = await fetch(`https://localhost:8080/hazard/${markerType}`);
+        const res = await fetch(`http://localhost:8080/hazard/${markerType}`);
         const data = await res.json();
         if (data.error) throw data.error;
 
@@ -88,7 +88,7 @@ const requestHillShade = async () => {
 
     // 검색한 지역 쪽으로 지도를 이동
     // 이 떄 위도와 경도를 openlayers의 지도에서 사용할 수 있는 방식으로 먼저 변환해야 함
-    map.getView().setCenter(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'));
+    map.getView().setCenter([parseFloat(latitude), parseFloat(longitude)]);
     map.getView().setZoom(16);
 
     // 도로 데이터를 geoserver로부터 받아와 map에 표시
